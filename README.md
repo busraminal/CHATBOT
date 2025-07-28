@@ -73,10 +73,12 @@ Büşra Mina AL
 Yapay zekâ mühendisliği & endüstri mühendisliği.
 Veriyi konuşturan sistemler geliştirir.
 🧠 Loro Chat, sürdürülebilir, yerel ve şeffaf veri analizi için oluşturulmuştur.
+
 www.linkedin.com/in/bmi̇nal60135806
 
 
 📜 Lisans
+
 Copyright (c) 2025 Büşra Mina AL
 Tüm hakları saklıdır.
 Bu yazılım yalnızca kişisel, akademik veya referans amaçlı görüntülenebilir. 
