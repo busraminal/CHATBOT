@@ -1,0 +1,52 @@
+[
+    {
+        "id": "001",
+        "ad": "Ana Bina",
+        "tur": "Bina",
+        "sigorta_bitisi": "2025-12-31",
+        "bakim_tarihi": "2025-08-15",
+        "garanti_bitisi": "2026-06-01",
+        "vergi_tarihi": "2025-10-01",
+        "sozlesme_son": "2025-11-01"
+    },
+    {
+        "id": "002",
+        "ad": "Forklift",
+        "tur": "Araç",
+        "sigorta_bitisi": "2025-06-21",
+        "bakim_tarihi": "2025-07-01",
+        "garanti_bitisi": "2025-12-01",
+        "vergi_tarihi": "2025-06-30",
+        "sozlesme_son": "2025-12-30"
+    },
+    {
+        "id": "003",
+        "ad": "Server Cihazı",
+        "tur": "Donanım",
+        "sigorta_bitisi": "2026-01-01",
+        "bakim_tarihi": "2025-06-20",
+        "garanti_bitisi": "2026-12-01",
+        "vergi_tarihi": "2025-12-01",
+        "sozlesme_son": "2026-01-15"
+    },
+    {
+        "id": "004",
+        "ad": "Jeneratör",
+        "tur": "Enerji",
+        "sigorta_bitisi": "2025-06-19",
+        "bakim_tarihi": "2025-06-25",
+        "garanti_bitisi": "2025-11-01",
+        "vergi_tarihi": "2025-06-28",
+        "sozlesme_son": "2025-12-10"
+    },
+    {
+        "id": "005",
+        "ad": "Ofis Bilgisayarı",
+        "tur": "Elektronik",
+        "sigorta_bitisi": "2026-02-01",
+        "bakim_tarihi": "2025-12-01",
+        "garanti_bitisi": "2025-08-01",
+        "vergi_tarihi": "2025-11-01",
+        "sozlesme_son": "2026-01-10"
+    }
+]

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loro Chat</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #eef1f5;
+            padding: 30px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .content-area {
+            margin-top: 30px;
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered img {
+            margin-right: 8px;
+            height: 14px;
+        }
+        .select2-results__option img {
+            margin-right: 8px;
+            height: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container fade-in">
+    <h2 class="mb-4 text-center">{{ metin['baslik'] }}</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-alert" class="alert alert-success" role="alert" style="transition: opacity 0.5s;">
+                {{ messages[0][1] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Ana Form -->
+    <form method="POST" enctype="multipart/form-data" class="form-section">
+        <input type="hidden" name="form_action" value="ana_form">
+
+        <div class="mb-3">
+            <input type="text" name="soru" placeholder="{{ metin['soru_placeholder'] }}" class="form-control" required>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label>{{ metin['model_secimi'] }}</label>
+                <select name="model" class="form-select">
+                    <option value="ollama">Ollama</option>
+                    <option value="gemma">Gemma</option>
+                    <option value="mistral">Mistral</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>{{ metin['grafik_turu'] }}</label>
+                <select name="grafik" class="form-select">
+                    <option value="bar">Bar</option>
+                    <option value="cizgi">Çizgi</option>
+                    <option value="pasta">Pasta</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label>{{ metin['tur_filtreleme'] }}</label>
+                <input type="text" name="filtre" class="form-control" placeholder="örn: bina, makine">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label>PDF Dili Seçimi:</label>
+            <select id="pdf_dil_select" name="pdf_dil" class="form-select">
+                <option value="tr" data-icon="/static/flags/tr.png">Türkçe</option>
+                <option value="en" data-icon="/static/flags/en.png">English</option>
+                <option value="fr" data-icon="/static/flags/fr.png">Français</option>
+            </select>
+        </div>
+
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-primary">{{ metin['gonder'] }}</button>
+            <a href="/static/rapor.pdf" class="btn btn-success" target="_blank">{{ metin['rapor_indir'] }}</a>
+        </div>
+    </form>
+
+    <!-- Dosya Yükleme Formu -->
+    <form method="POST" action="/" enctype="multipart/form-data" class="mt-4">
+        <input type="hidden" name="form_action" value="upload_file">
+        <label>Yeni Varlık Verisi Yükle:</label>
+        <input type="file" name="veri_dosya" class="form-control">
+        <button type="submit" class="btn btn-info mt-2">Dosya ile Kaydet</button>
+    </form>
+
+    <!-- Manuel Veri Girişi Formu -->
+    <form method="POST" action="/manuel-kaydet" class="mt-4">
+        <label for="manual_entry">Yeni Varlık Ekle (Manuel):</label>
+        <textarea name="manual_entry" rows="4" class="form-control" placeholder="ID, Ad, Tür, Sigorta, Bakım, Garanti, Vergi, Sözleşme, Muayene"></textarea>
+        <button type="submit" class="btn btn-warning mt-2">Manuel Kaydet</button>
+    </form>
+
+    {% if tablo %}
+        <div class="content-area">
+            <h5>{{ metin['filtre_baslik'] }}</h5>
+            <table id="varlikTablo" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        {% for k in tablo[0].keys() %}
+                            <th>{{ k }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for satir in tablo %}
+                        <tr>
+                            {% for v in satir.values() %}
+                                <td>{{ v }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h5>{{ metin['asistan_yorumu'] }}</h5>
+            <p>{{ cevap }}</p>
+
+            <h5>{{ metin['grafik_baslik'] }}</h5>
+            <img src="/static/grafik.png" class="img-fluid">
+        </div>
+    {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#varlikTablo').DataTable();
+
+        $('#pdf_dil_select').select2({
+            templateResult: formatOption,
+            templateSelection: formatOption
+        });
+
+        function formatOption(state) {
+            if (!state.id) return state.text;
+            const icon = $(state.element).data('icon');
+            if (!icon) return state.text;
+            return $(`<span><img src="${icon}" style="width: 20px;" /> ${state.text}</span>`);
+        }
+
+        setTimeout(() => {
+            const alertBox = document.getElementById("flash-alert");
+            if (alertBox) {
+                alertBox.style.opacity = "0";
+                setTimeout(() => alertBox.remove(), 500);
+            }
+        }, 3000);
+    });
+</script>
+</body>
+</html>
