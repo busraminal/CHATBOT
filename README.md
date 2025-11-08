@@ -1,87 +1,112 @@
 # 🤖 Loro Chat — Çok Dilli Varlık Yönetim Asistanı
 
-**Loro Chat**, kullanıcıların varlık verilerini yükleyerek (manuel ya da dosya ile), doğal dilde analiz edebildiği ve sonuçları grafik + PDF olarak görebildiği **Flask tabanlı çok dilli bir veri asistanıdır.**  
-Yapay zekâ destekli bu sistem, yerel olarak çalışan LLM (Ollama) ile entegredir ve hiçbir dış API gerektirmez.
+**Loro Chat**, kullanıcıların varlık verilerini yükleyerek (manuel veya dosya ile), doğal dilde analiz edebildiği ve sonuçları grafik + PDF olarak sunabildiği **Flask tabanlı çok dilli veri asistanıdır.**
+Sistem, **yerel olarak çalışan LLM modelleri (Ollama)** ile entegre çalışır ve **hiçbir dış API kullanmaz.**
 
 ---
 
 ## 🚀 Öne Çıkan Özellikler
 
-- 📂 **Excel, CSV, JSON dosya yükleme**
-- 📝 **Manuel veri girişi (form)**
-- 📊 **Matplotlib ile grafik üretimi (bar, çizgi, pasta)**
-- 📥 **`varliklar.json` içinde kalıcı veri saklama**
-- 🌍 **Çoklu dil desteği (Türkçe 🇹🇷 | İngilizce 🇬🇧 | Fransızca 🇫🇷)**
-- 🧠 **Yerel LLM (phi-3 / mistral) ile doğal dilde analiz (Ollama ile)**
-- 🖨️ **PDF rapor üretimi (grafik + açıklama gömülü)**
+- 📂 Excel / CSV / JSON dosya yükleme
+- 📝 Manuel veri giriş formu
+- 📊 Matplotlib ile grafik üretimi (bar, çizgi, pasta)
+- 💾 `varliklar.json` ile **kalıcı veri saklama**
+- 🌍 Çoklu dil desteği (🇹🇷 TR • 🇬🇧 EN • 🇫🇷 FR)
+- 🧠 Yerel LLM analiz (phi-3 / mistral — Ollama)
+- 🖨️ PDF rapor üretimi (grafik + açıklama birlikte)
 
 ---
 
 ## 📦 Kullanılan Teknolojiler
 
 | Bileşen | Açıklama |
-|--------|----------|
+|--------|---------|
 | Flask  | Web sunucusu ve routing |
-| Matplotlib | Grafik çizimi |
-| ReportLab | PDF oluşturma |
-| JSON | Veri saklama (kalıcı kayıt) |
-| HTML + Bootstrap | Kullanıcı arayüzü |
-| Ollama + LLM (phi-3, mistral) | Yerel dil modeli ile analiz |
+| Matplotlib | Görsel veri analizi grafikleri |
+| ReportLab | PDF rapor oluşturma |
+| JSON | Kalıcı veri depolama |
+| HTML + Bootstrap | Web arayüzü |
+| Ollama + LLM (phi-3 / mistral) | Doğal dil ile açıklama üretimi |
 
 ---
 
-## 🧪 Nasıl Çalıştırılır?
+## 🧪 Çalıştırma Adımları
 
-
+```bash
 pip install flask matplotlib reportlab
 ollama run phi3
 python app.py
-Tarayıcıdan aç:
+```
+
+Tarayıcıda aç:
+```
 http://localhost:5000/
+```
 
-📁 Proje Yapısı
-java
-Kopyala
-Düzenle
-📁 static/
-    └── grafik.png               → Oluşturulan grafik (her analizde üzerine yazılır)
-📁 templates/
-    └── index.html               → Ana arayüz
-📁 uploads/
-    └── [Yüklenen dosyalar]      → CSV/JSON geçici yüklemeler
-📄 app.py                        → Uygulama sunucusu (Flask)
-📄 varliklar.json                → Kalıcı veri deposu
-📄 README.md                     → Bu dosya
+---
 
-🗣️ Dil Desteği
-Uygulama dili kullanıcı tarafından seçilebilir.
-PDF ve grafik çıktıları seçilen dile göre oluşturulur.
-Bayrak ikonları üzerinden dinamik dil değişimi yapılır.
+## 📁 Proje Yapısı
 
-🧠 LLM (Yapay Zekâ) Entegrasyonu
-Sistem, Ollama ile yerel olarak çalışan LLM modelleriyle çalışır:
-phi-3 (hafif ve hızlı)
-mistral (daha güçlü bağlam analizleri için)
-Ollama kurulduktan sonra terminalden şu komutla çalıştırılır:
+```
+LoroChat/
+│
+├── app.py                      # Flask uygulaması
+├── varliklar.json              # Kalıcı veri deposu
+│
+├── static/
+│   └── grafik.png              # Son oluşturulan grafik
+│
+├── templates/
+│   └── index.html              # Ana arayüz
+│
+└── uploads/
+    └── ...                     # Yüklenen geçici dosyalar
+```
+
+---
+
+## 🗣️ Dil Desteği
+
+- Uygulama dili kullanıcı tarafından arayüzden seçilir
+- PDF ve grafik açıklamaları **seçilen dile göre otomatik üretilir**
+- Bayrak ikonları ile **anlık dil geçişi** yapılabilir
+
+---
+
+## 🧠 LLM Entegrasyonu (Ollama)
+
+Yerel modeller ile çalışır:
+- **phi-3** → Daha hızlı, hafif analizler
+- **mistral** → Daha derin anlamlı yorumlar için
+
+LLM'i başlatmak için terminalde:
+
+```bash
 ollama run phi3
+```
 
+---
 
-PDF içinde grafik + doğal dil açıklama yer alır.
+## 👩‍💻 Geliştirici
 
-👩‍💻 Geliştirici
-Büşra Mina AL
-Yapay zekâ mühendisliği & endüstri mühendisliği.
-Veriyi konuşturan sistemler geliştirir.
-🧠 Loro Chat, sürdürülebilir, yerel ve şeffaf veri analizi için oluşturulmuştur.
+**Büşra Mina AL**  
+Yapay zekâ & Endüstri mühendisliği.  
+Veriyi konuşturan, yerel ve güvenilir karar destek sistemleri geliştirir.
 
-www.linkedin.com/in/bmi̇nal60135806
+LinkedIn → https://www.linkedin.com/in/bmi̇nal60135806
 
+---
 
-📜 Lisans
+## 📜 Lisans
 
-Copyright (c) 2025 Büşra Mina AL
+```
+Copyright (c) 2025
 Tüm hakları saklıdır.
-Bu yazılım yalnızca kişisel, akademik veya referans amaçlı görüntülenebilir. 
-Yazılımın kopyalanması, yeniden dağıtılması, ticari amaçla kullanılması veya değiştirilmesi kesinlikle yasaktır. 
-Bu proje, sahibi Büşra Mina AL'nin açık yazılı izni olmaksızın herhangi bir platformda veya ortamda kullanılamaz.
-İhlaller yasal takip gerektirir.
+
+Bu yazılım yalnızca kişisel, eğitimsel veya referans amaçlı incelenebilir.
+İzin alınmadan:
+- kopyalanamaz
+- yeniden dağıtılamaz
+- ticari amaçla kullanılamaz
+İhlaller hukuki sürece tabidir.
+```
